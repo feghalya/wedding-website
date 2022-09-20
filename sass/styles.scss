@@ -251,7 +251,7 @@ Navigation
 Hero
 ========================================================================== */
 .hero {
-  min-height: 750px;
+  min-height: 800px;
   background: url('../img/hero-min.jpg') center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -281,7 +281,7 @@ Hero
     padding-top: 40%;
   }
   .hero-content img {
-    width: 55%;
+    width: 50%;
     margin-bottom: 12%;
   }
 }
@@ -645,9 +645,9 @@ Features-stack
 }
 
 /* ==========================================================================
-Instagram
+Invitation Card
 ========================================================================== */
-#instagram {
+#invitation-card {
   img {
     width: 100%;
   }
@@ -747,41 +747,40 @@ Embed video
 }
 
 /* ==========================================================================
-Google map
+Church and Venue
 ========================================================================== */
-#map-canvas {
-  height: 500px;
-  width: 100%;
-}
-#map-content-wrapper {
+#church-content-wrapper {
+  height: 600px;
+  background: url('../img/church.jpg') center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   position: relative;
-  margin-top: -502px;
-  margin-bottom: 150px;
+
+  .church-content {
+    margin-top: 40px;
+    padding: 20px 60px;
+    background: #fff;
+    opacity: 0.8;
+  }
 }
-#map-content {
-  margin-top: 40px;
-  padding: 50px 60px;
-  background: #fff;
-  -webkit-transition: opacity 0.5s, visibility 0.6s, margin-top 0.5s;
-  transition: opacity 0.5s, visibility 0.6s, margin-top 0.5s;
-}
-#btn-show-content {
-  padding: 20px;
-  background: #fff;
-  cursor: pointer;
-  display: inline-block;
-  -webkit-transition: opacity 0.5s, visibility 0.6s, margin-top 0.5s;
-  transition: opacity 0.5s, visibility 0.6s, margin-top 0.5s;
-}
-.toggle-map-content {
-  opacity: 0;
-  visibility: hidden;
-}
-.pointer-events-none {
-  pointer-events: none;
-}
-.pointer-events-auto {
-  pointer-events: auto;
+
+#venue-content-wrapper {
+  height: 600px;
+  background: url('../img/venue.jpg') center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+
+  .venue-content {
+    margin-top: 40px;
+    padding: 20px 60px;
+    background: #fff;
+    opacity: 0.8;
+  }
 }
 
 /* ==========================================================================

@@ -26,5 +26,13 @@ gulp.task('minify-js', function () {
         .pipe(gulp.dest('./js'));
 });
 
+// minify js
+gulp.task('minify-guests-js', function () {
+    return gulp.src('./js/guests.js')
+        .pipe(uglify())
+        .pipe(rename({basename: 'guests.min'}))
+        .pipe(gulp.dest('./js'));
+});
+
 // default task
-gulp.task('default', gulp.series('sass', 'minify-js'));
+gulp.task('default', gulp.series('sass', 'minify-js', 'minify-guests-js'));

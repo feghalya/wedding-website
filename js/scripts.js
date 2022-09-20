@@ -147,12 +147,15 @@ $(document).ready(function () {
 
     for (var i = 0; i < share_bar.length; i++) {
         var html = '<iframe allowtransparency="true" frameborder="0" scrolling="no"' +
-            'src="https://platform.twitter.com/widgets/tweet_button.html?url=' + encodeURIComponent(window.location) + '&amp;text=' + encodeURIComponent(document.title) + '&amp;via=ramswarooppatra&amp;hashtags=ramandantara&amp;count=horizontal"' +
+            'src="https://platform.twitter.com/widgets/tweet_button.html?url=' + 
+	    encodeURIComponent(window.location) + '&amp;text=' + encodeURIComponent(document.title) +
+	    '&amp;via=ramswarooppatra&amp;hashtags=ramandantara&amp;count=horizontal"' +
             'style="width:105px; height:21px;">' +
             '</iframe>' +
-
-            '<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent(window.location) + '&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21&amp;appId=101094500229731&amp;width=150" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>' +
-
+            '<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent(window.location) +
+	    '&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=true&amp;height=21' + 
+            '&amp;appId=101094500229731&amp;width=150" scrolling="no" frameborder="0" style="border:none; ' +
+	    'overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>' +
             '<div class="g-plusone" data-size="medium"></div>';
 
         // '<iframe src="https://plusone.google.com/_/+1/fastbutton?bsv&amp;size=medium&amp;url=' + encodeURIComponent(window.location) + '" allowtransparency="true" frameborder="0" scrolling="no" title="+1" style="width:105px; height:21px;"></iframe>';
@@ -184,23 +187,23 @@ $(document).ready(function () {
         },
         data: {
             // Event title
-            title: "Ram and Antara's Wedding",
+            title: "Candy and Albert's Wedding",
 
             // Event start date
-            start: new Date('Nov 27, 2017 10:00'),
+            start: new Date('Aug 14, 2022 19:30'),
 
             // Event duration (IN MINUTES)
             // duration: 120,
 
             // You can also choose to set an end time
             // If an end time is set, this will take precedence over duration
-            end: new Date('Nov 29, 2017 00:00'),
+            end: new Date('Aug 15, 2022 00:00'),
 
             // Event Address
-            address: 'ITC Fortune Park Hotel, Kolkata',
+            address: 'Nuit Blanche Venue, Mar Roukoz, Mont-Liban, Lebanon',
 
             // Event Description
-            description: "We can't wait to see you on our big day. For any queries or issues, please contact Mr. Amit Roy at +91 9876543210."
+            description: "We can't wait to see you on our big day."
         }
     });
 
@@ -218,7 +221,7 @@ $(document).ready(function () {
             && MD5($('#invite_code').val()) !== '2ac7f43695eb0479d5846bb38eec59cc') {
             $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
         } else {
-            $.post('https://script.google.com/macros/s/AKfycbzUqz44wOat0DiGjRV1gUnRf4HRqlRARWggjvHKWvqniP7eVDG-/exec', data)
+            $.post('https://script.google.com/macros/s/AKfycbyyFy75HPsN1utroRKqHB27ALiCacTVN0eceo9Ue0R9JJh4nY1BPR9SYdK3ETUUQbC8EA/exec', data)
                 .done(function (data) {
                     console.log(data);
                     if (data.result === "error") {
@@ -270,7 +273,8 @@ function initBBSRMap() {
 
 // alert_markup
 function alert_markup(alert_type, msg) {
-    return '<div class="alert alert-' + alert_type + '" role="alert">' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button></div>';
+    return '<div class="alert alert-' + alert_type + '" role="alert">' + msg +
+        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button></div>';
 }
 
 // MD5 Encoding
@@ -491,3 +495,41 @@ var MD5 = function (string) {
 
     return temp.toLowerCase();
 };
+
+// Guest name parser
+var guestNameParser = function() {
+    var url = decodeURIComponent(location.pathname.substr(1));
+    url = url.replace(/\/+$/, "");
+    var name = "";
+    var lang = "en";
+    if (url == "ar" || url == "en") {
+        lang = url
+    } else if (url.includes('/')) {
+        var url_array = url.split("/");
+        var lang_ = url_array[0];
+	if (lang_ == "ar" || lang_ == "en") {
+	    lang = lang_
+            var name_id = url_array[1];
+            if (name_id in guest_encoding) {
+                var name_dict = guest_encoding[name_id];
+                var name = guest_encoding[name_id][lang];
+                var name_en = guest_encoding[name_id]["en"];
+	    }
+        }
+    }
+
+    document.getElementById('story').innerHTML = story[lang];
+    document.getElementById('invitation-card-placeholder').src = "img/invitation_card_" + lang + ".png"
+
+    if (name) {
+        document.getElementById('invitees').innerHTML = name;
+	document.getElementById('card').src = "img/invitation_card_"+lang+".png";
+        document.getElementById('invite_code').value = 271117;
+        document.getElementById('guest_name').value = name_en;
+        $(document).ready(function(){
+            $("#myModal").modal('show');
+        });
+    } else if (url != "en" && url != "ar") {
+	location.pathname = lang
+    }
+}
